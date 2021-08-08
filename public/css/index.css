@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
+body {
+  background-color: aliceblue;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins";
+  background-image: url("../images/background-bank.jpg");
+  background-size: cover;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.services {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-top: 12em;
+}
+
+.card {
+  height: 250px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3em;
+  border-radius: 0.7em;
+  cursor: pointer;
+  background-color: rgb(213, 215, 218);
+}
+
+.card:hover {
+  background-color: rgb(225, 227, 230);
+}
+
+img {
+  width: 200px;
+  height: 100px;
+}
