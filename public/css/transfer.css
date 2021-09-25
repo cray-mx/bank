@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(204, 198, 198);
+}
+
+.container {
+  height: 10vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  margin-top: -30em;
+}
+
+.sender,
+.recipient {
+  position: relative;
+}
+
+.sender ul,
+.recipient ul {
+  position: absolute;
+  margin-top: 0.8em;
+  background-color: white;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  cursor: pointer;
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s ease;
+  transform: translateY(10px);
+}
+
+.container button:focus + ul {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.container button {
+  background: none;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.container button:hover {
+  color: rgb(73, 73, 73);
+}
+
+li {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+}
+
+li:hover {
+  background-color: rgb(20, 94, 206);
+  color: white;
+}
+
+img {
+  width: 50px;
+  height: 50px;
+}
+
+.money {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input {
+  border: none;
+  width: 100px;
+  padding: 0.8em 1em;
+  outline: none;
+}

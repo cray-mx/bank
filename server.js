@@ -3,7 +3,7 @@ const connect = require("./db/connect");
 const cors = require("cors");
 const app = express();
 const customerModel = require("./db/customerSchema");
-
+const authRouter = require("./components/authRouter");
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + "/public"));
@@ -12,8 +12,10 @@ app.use(cors());
 connect();
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/html/index.html");
+  res.redirect("/login");
 });
+
+app.use("/", authRouter); // authentication routes
 
 app.get("/customers", (req, res) => {
   res.sendFile(__dirname + "/public/html/customers.html");
@@ -24,6 +26,12 @@ app.get("/customerData", (req, res) => {
     .find({})
     .then((result) => res.json(result))
     .catch((err) => console.log(err));
+});
+
+app.get("/transactions", (req, res) => {});
+
+app.get("/transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/html/transfer.html");
 });
 
 app.post("/create", (req, res) => {
