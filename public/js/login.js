@@ -1,15 +1,17 @@
-const [username, password] = document.getElementsByTagName("input");
+document.getElementById("submit").addEventListener("click", () => {
+  const [username, password] = document.getElementsByTagName("input");
 
-fetch("/login", {
-  method: "POST",
-  body: JSON.stringify({ username, password }),
-})
-  .then((res) => res.json())
-  .then((result) => {
-    if (result === "success") {
-      window.location.href = "/home";
-    } else {
-      alert("Incorrect details!");
-    }
+  fetch("/login", {
+    method: "POST",
+    body: JSON.stringify({ username, password }),
   })
-  .catch((err) => console.log("Error in logging in"));
+    .then((res) => res.json())
+    .then((result) => {
+      if (result === "success") {
+        window.location.href = "/home";
+      } else {
+        alert("Incorrect details!");
+      }
+    })
+    .catch((err) => console.log("Error in logging in"));
+});
