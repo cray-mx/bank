@@ -7,7 +7,10 @@ document.getElementById("submit").addEventListener("click", () => {
   password = password.value;
   confirmPassword = confirmPassword.value;
 
-  if (password !== confirmPassword) return;
+  if (password !== confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
 
   fetch("http://127.0.0.1:3000/register", {
     method: "POST",
