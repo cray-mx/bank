@@ -17,6 +17,10 @@ app.get("/", (req, res) => {
 
 app.use("/", authRouter); // authentication routes
 
+app.get("/home", (req, res) => {
+  res.sendFile(__dirname + "/public/html/index.html");
+});
+
 app.get("/customers", (req, res) => {
   res.sendFile(__dirname + "/public/html/customers.html");
 });
@@ -34,18 +38,11 @@ app.get("/transfer", (req, res) => {
   res.sendFile(__dirname + "/public/html/transfer.html");
 });
 
-app.post("/create", (req, res) => {
-  let doc = new customerModel({
-    name: "Brian Chesky",
-    email: "brianchesky@gmail.com",
-    gender: "Male",
-    balance: 78500,
-  });
-  doc
-    .save()
-    .then((result) => console.log("User created"))
-    .catch((err) => console.log("Could not create user!"));
-  res.send("<h1>User Created</h1>");
+app.delete("/users", (req, res) => {
+  customerModel
+    .deleteMany({})
+    .then((response) => res.json({ msg: "success" }))
+    .catch((err) => res.json({ msg: "failure" }));
 });
 
 app.listen(PORT, () => console.log("Server is listening on", PORT));

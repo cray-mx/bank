@@ -11,18 +11,17 @@ document.getElementById("submit").addEventListener("click", () => {
     alert("Passwords do not match!");
     return;
   }
-
+  const details = JSON.stringify({ firstName, lastName, email, password });
   fetch("http://127.0.0.1:3000/register", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
+      "Content-type": "application/json",
     },
-    body: JSON.stringify({ firstName, lastName, email, password }),
+    body: details,
   })
     .then((res) => res.json())
     .then((result) => {
-      if (result === "success") {
+      if (result.msg === "success") {
         window.location.href = "/home";
       } else {
         alert("Cannot Register User");

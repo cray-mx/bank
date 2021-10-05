@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+const customerModel = require("../db/customerSchema");
+const bcrypt = require("bcrypt");
 
 const app = express();
 
@@ -15,7 +17,47 @@ router.get("/register", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  console.log(req.body);
+  const { firstName, lastName, email, password } = req.body;
+  const balance = 5000;
+  customerModel
+    .findOne({ email: email })
+    .then((res) => {
+      if (res !== null) {
+        res.json({ msg: "failure" });
+      }
+    })
+    .catch((err) => res.json({ msg: "failure" }));
+  bcrypt
+    .hash(password, 10)
+    .then((hash) => {
+      const customerData = new customerModel({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: hash,
+        balance: balance,
+      });
+      customerData
+        .save()
+        .then((response) => res.json({ msg: "success" }))
+        .catch((err) => res.json({ msg: "failure" }));
+    })
+    .catch((err) => res.json({ msg: "failure" }));
+});
+
+router.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  customerModel.findOne({ email: email }).then((doc) => {
+    bcrypt
+      .compare(password, doc.password)
+      .then((result) => {
+        if (result) res.json({ msg: "success" });
+        else res.json({ msg: "failure" });
+      })
+      .catch((err) => {
+        res.json({ msg: "failure" });
+      });
+  });
 });
 
 module.exports = router;
