@@ -12,7 +12,7 @@ document.getElementById("submit").addEventListener("click", () => {
     return;
   }
   const details = JSON.stringify({ firstName, lastName, email, password });
-  fetch("http://127.0.0.1:3000/register", {
+  fetch("/register", {
     method: "POST",
     headers: {
       "Content-type": "application/json",

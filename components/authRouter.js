@@ -3,6 +3,8 @@ const router = express.Router();
 const path = require("path");
 const customerModel = require("../db/customerSchema");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const app = express();
 
@@ -21,26 +23,34 @@ router.post("/register", (req, res) => {
   const balance = 5000;
   customerModel
     .findOne({ email: email })
-    .then((res) => {
-      if (res !== null) {
-        res.json({ msg: "failure" });
+    .then((doc) => {
+      if (doc) return res.status(401).json({ msg: "failure" });
+      else {
+        bcrypt
+          .hash(password, 10)
+          .then((hash) => {
+            const customerData = new customerModel({
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              password: hash,
+              balance: balance,
+            });
+            customerData
+              .save()
+              .then((doc) => {
+                const user = {
+                  subjectId: doc._id,
+                  name: doc.firstName + " " + doc.lastName,
+                };
+                const accessToken = jwt.sign(user, process.env.SECRET_KEY);
+                res.cookie("jwt", accessToken);
+                return res.json({ msg: "success" });
+              })
+              .catch((err) => res.json({ msg: "failure" }));
+          })
+          .catch((err) => res.json({ msg: "failure" }));
       }
-    })
-    .catch((err) => res.json({ msg: "failure" }));
-  bcrypt
-    .hash(password, 10)
-    .then((hash) => {
-      const customerData = new customerModel({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: hash,
-        balance: balance,
-      });
-      customerData
-        .save()
-        .then((response) => res.json({ msg: "success" }))
-        .catch((err) => res.json({ msg: "failure" }));
     })
     .catch((err) => res.json({ msg: "failure" }));
 });
@@ -51,8 +61,15 @@ router.post("/login", (req, res) => {
     bcrypt
       .compare(password, doc.password)
       .then((result) => {
-        if (result) res.json({ msg: "success" });
-        else res.json({ msg: "failure" });
+        if (result) {
+          const user = {
+            subjectId: doc._id,
+            name: doc.firstName + " " + doc.lastName,
+          };
+          const accessToken = jwt.sign(user, process.env.SECRET_KEY);
+          res.cookie("jwt", accessToken);
+          return res.json({ msg: "success" });
+        } else return res.json({ msg: "failure" });
       })
       .catch((err) => {
         res.json({ msg: "failure" });
