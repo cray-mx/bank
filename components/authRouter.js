@@ -4,18 +4,22 @@ const path = require("path");
 const customerModel = require("../db/customerSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const verifyToken = require("../middleware/verifyToken");
 require("dotenv").config();
 
 const app = express();
+app.use(verifyToken);
 
 app.use(express.json());
 
 router.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/html/login.html"));
+  if (res.auth) res.redirect("/home");
+  else res.sendFile(path.join(__dirname, "../public/html/login.html"));
 });
 
 router.get("/register", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/html/register.html"));
+  if (res.auth) res.redirect("/home");
+  else res.sendFile(path.join(__dirname, "../public/html/register.html"));
 });
 
 router.post("/register", (req, res) => {

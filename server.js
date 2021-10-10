@@ -1,27 +1,32 @@
 const express = require("express");
-const connect = require("./db/connect");
 const cors = require("cors");
-const app = express();
 const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+const connect = require("./db/connect");
 const customerModel = require("./db/customerSchema");
 const authRouter = require("./components/authRouter");
+const verifyToken = require("./middleware/verifyToken");
+
+const app = express();
 const PORT = process.env.PORT || 3000;
-const verifyToken = require("./middleware/authorize");
 
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+app.use(verifyToken);
 connect();
 
 app.get("/", (req, res) => {
-  res.redirect("/login");
+  if (res.auth) res.redirect("/home");
+  else res.redirect("/login");
 });
 
 app.use("/", authRouter); // authentication routes
 
-app.get("/home", verifyToken, (req, res) => {
-  res.sendFile(__dirname + "/public/html/index.html");
+app.get("/home", (req, res) => {
+  if (res.auth) res.sendFile(__dirname + "/public/html/index.html");
+  else res.sendFile(__dirname + "/public/html/401.html");
 });
 
 app.get("/customers", (req, res) => {
@@ -46,6 +51,10 @@ app.delete("/users", (req, res) => {
     .deleteMany({})
     .then((response) => res.json({ msg: "success" }))
     .catch((err) => res.json({ msg: "failure" }));
+});
+
+app.use((req, res) => {
+  res.sendFile(__dirname + "/public/html/404.html");
 });
 
 app.listen(PORT, () => console.log("Server is listening on", PORT));

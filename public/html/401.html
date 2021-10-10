@@ -1,0 +1,47 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unauthorized</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+      body {
+        font-family: "Poppins";
+      }
+      h1 {
+        font-size: 3em;
+        margin-top: 2em;
+      }
+      span {
+        color: red;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .actions {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
+      a {
+        font-size: 1.8em;
+        text-decoration: none;
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Error <span>401</span> - Unauthorized</h1>
+    </div>
+    <div class="actions">
+      <a href="/login">Login</a>
+      <p>or</p>
+      <a href="/register">Sign-up</a>
+    </div>
+  </body>
+</html>
