@@ -3,35 +3,27 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Transfers</title>
+    <title>Transfer</title>
     <link rel="icon" href="../images/bank.svg" />
     <link rel="stylesheet" href="../css/transfer.css" />
   </head>
   <body>
     <div class="container">
-      <div class="sender">
-        <button>Sender</button>
-        <!-- <img src="../images/down-chevron.png" alt="" /> -->
-        <ul>
-          <li>Rayaan</li>
-          <li>Varsha</li>
-          <li>Danish</li>
-          <li>Dexter</li>
-        </ul>
-      </div>
-      <div class="money">
-        <img src="../images/right-arrow.png" alt="" />
-        <input type="text" />
-      </div>
-      <div class="recipient">
-        <button>Recipient</button>
-        <ul>
-          <li>Rayaan</li>
-          <li>Varsha</li>
-          <li>Danish</li>
-          <li>Dexter</li>
-        </ul>
+      <h1>Transfer money to</h1>
+      <div class="inner-container"></div>
+    </div>
+    <div class="modal">
+      <div class="modal-content">
+        <div class="close">+</div>
+        <p>To</p>
+        <p class="modal_name" style="font-size: 1.3em"></p>
+        <p class="modal_email" style="font-weight: bold"></p>
+        <div class="lower-container">
+          <input type="text" />
+          <img class="send" src="../images/send.svg" alt="" />
+        </div>
       </div>
     </div>
+    <script src="../js/transfer.js"></script>
   </body>
 </html>

@@ -42,6 +42,18 @@ body {
   margin-right: 2em;
 }
 
+.greeting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.3em;
+}
+
+#greeting {
+  font-size: 1.5em;
+  color: rgb(112, 112, 112);
+}
+
 .services {
   display: flex;
   justify-content: space-evenly;

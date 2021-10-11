@@ -9,12 +9,10 @@ const tableEntry = () => {
         let row = table.insertRow(rowIndex++);
         let name = row.insertCell(0);
         let email = row.insertCell(1);
-        let gender = row.insertCell(2);
-        let balance = row.insertCell(3);
+        let balance = row.insertCell(2);
 
-        name.innerHTML = result[i].name;
+        name.innerHTML = result[i].firstName + " " + result[i].lastName;
         email.innerHTML = result[i].email;
-        gender.innerHTML = result[i].gender;
         balance.innerHTML = result[i].balance;
       }
     });
