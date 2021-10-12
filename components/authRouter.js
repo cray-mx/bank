@@ -28,7 +28,7 @@ router.post("/register", (req, res) => {
   customerModel
     .findOne({ email: email })
     .then((doc) => {
-      if (doc) return res.status(401).json({ msg: "failure" });
+      if (doc) return res.status(401).json({ msg: "email_failure" });
       else {
         bcrypt
           .hash(password, 10)
@@ -46,6 +46,7 @@ router.post("/register", (req, res) => {
                 const user = {
                   subjectId: doc._id,
                   name: doc.firstName + " " + doc.lastName,
+                  email: doc.email,
                 };
                 const accessToken = jwt.sign(user, process.env.SECRET_KEY);
                 res.cookie("jwt", accessToken);
@@ -62,22 +63,27 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
   customerModel.findOne({ email: email }).then((doc) => {
-    bcrypt
-      .compare(password, doc.password)
-      .then((result) => {
-        if (result) {
-          const user = {
-            subjectId: doc._id,
-            name: doc.firstName + " " + doc.lastName,
-          };
-          const accessToken = jwt.sign(user, process.env.SECRET_KEY);
-          res.cookie("jwt", accessToken);
-          return res.json({ msg: "success" });
-        } else return res.json({ msg: "failure" });
-      })
-      .catch((err) => {
-        res.json({ msg: "failure" });
-      });
+    if (doc) {
+      bcrypt
+        .compare(password, doc.password)
+        .then((result) => {
+          if (result) {
+            const user = {
+              subjectId: doc._id,
+              name: doc.firstName + " " + doc.lastName,
+              email: doc.email,
+            };
+            const accessToken = jwt.sign(user, process.env.SECRET_KEY);
+            res.cookie("jwt", accessToken);
+            return res.json({ msg: "success" });
+          } else return res.json({ msg: "failure" });
+        })
+        .catch((err) => {
+          res.json({ msg: "failure" });
+        });
+    } else {
+      res.json({ msg: "failure" });
+    }
   });
 });
 

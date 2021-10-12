@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const connect = require("./db/connect");
 const customerModel = require("./db/customerSchema");
+const transferModel = require("./db/transferSchema");
 const authRouter = require("./components/authRouter");
 const verifyToken = require("./middleware/verifyToken");
 
@@ -44,6 +45,18 @@ app.get("/transactions", (req, res) => {});
 
 app.get("/transfer", (req, res) => {
   res.sendFile(__dirname + "/public/html/transfer.html");
+});
+
+app.post("/transfer", (req, res) => {
+  console.log(req.body);
+  const transferDetails = new transferModel({
+    sender: req.body.sender,
+    senderEmail: req.body.senderEmail,
+    recipient: req.body.recipient,
+    recipientEmail: req.body.recipientEmail,
+    amount: Number(req.body.amount),
+  });
+  res.json({ msg: "success" });
 });
 
 app.delete("/users", (req, res) => {

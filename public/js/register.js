@@ -8,7 +8,9 @@ document.getElementById("submit").addEventListener("click", () => {
   confirmPassword = confirmPassword.value;
 
   if (password !== confirmPassword) {
-    alert("Passwords do not match!");
+    document.getElementsByClassName("modal")[0].style.display = "flex";
+    document.getElementsByClassName("error_msg")[0].innerHTML =
+      "Passwords do not match";
     return;
   }
   const details = JSON.stringify({ firstName, lastName, email, password });
@@ -23,9 +25,19 @@ document.getElementById("submit").addEventListener("click", () => {
     .then((result) => {
       if (result.msg === "success") {
         window.location.href = "/home";
+      } else if (result.msg === "email_failure") {
+        document.getElementsByClassName("modal")[0].style.display = "flex";
+        document.getElementsByClassName("error_msg")[0].innerHTML =
+          "User already registered";
       } else {
-        alert("Cannot Register User");
+        document.getElementsByClassName("modal")[0].style.display = "flex";
+        document.getElementsByClassName("error_msg")[0].innerHTML =
+          "Something Went Wrong!";
       }
     })
     .catch((err) => console.log("Error in registering"));
+});
+
+document.getElementsByClassName("close")[0].addEventListener("click", (e) => {
+  document.getElementsByClassName("modal")[0].style.display = "none";
 });

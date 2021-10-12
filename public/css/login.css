@@ -3,6 +3,8 @@
 body {
   background-color: rgb(200, 204, 200);
   font-family: "Poppins";
+  margin: 0;
+  padding: 0;
 }
 
 .container {
@@ -44,4 +46,45 @@ button {
 
 button:hover {
   background-color: rgb(21, 226, 38);
+}
+
+.modal {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.modal-content {
+  width: 450px;
+  height: 300px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: -7em;
+  position: relative;
+}
+
+.modal-content p {
+  font-size: 1.4em;
+  color: red;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  font-size: 1.5em;
+  transform: rotate(45deg);
+}
+
+.close:hover {
+  cursor: pointer;
 }

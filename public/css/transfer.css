@@ -108,11 +108,24 @@ img {
 .close {
   position: absolute;
   top: 0;
-  right: 20px;
+  right: 15px;
   font-size: 1.5em;
   transform: rotate(45deg);
 }
 
 .close:hover {
   cursor: pointer;
+}
+
+.success_msg {
+  color: rgb(8, 194, 8);
+}
+
+.failure_msg {
+  color: red;
+}
+
+.rupee {
+  height: 45px;
+  width: 45px;
 }

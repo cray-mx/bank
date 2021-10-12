@@ -5,14 +5,17 @@ const transferSchema = new mongoose.Schema(
     sender: {
       type: String,
     },
+    senderEmail: {
+      type: String,
+    },
     recipient: {
       type: String,
     },
-    senderEmailId: {
+    recipientEmail: {
       type: String,
     },
-    recipientEmailId: {
-      type: String,
+    amount: {
+      type: Number,
     },
   },
   { timestamps: true }

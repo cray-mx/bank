@@ -4,7 +4,7 @@ document.getElementById("submit").addEventListener("click", () => {
     email: email.value,
     password: password.value,
   });
-  fetch("/login", {
+  fetch("http://localhost:3000/login", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -13,11 +13,15 @@ document.getElementById("submit").addEventListener("click", () => {
   })
     .then((res) => res.json())
     .then((result) => {
-      if (result.msg === "success") {
+      if (result.msg == "success") {
         window.location.href = "/home";
       } else {
-        alert("Incorrect details!");
+        document.getElementsByClassName("modal")[0].style.display = "flex";
       }
     })
     .catch((err) => console.log("Error in logging in"));
+});
+
+document.getElementsByClassName("close")[0].addEventListener("click", (e) => {
+  document.getElementsByClassName("modal")[0].style.display = "none";
 });
