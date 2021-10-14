@@ -4,14 +4,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  font-family: "Poppins";
 }
 
 #table-content {
   margin: 25px 0;
   font-size: 1.4em;
-  font-family: "Poppins";
   min-width: 1000px;
-  margin-top: 100px;
 }
 
 th,
@@ -23,4 +22,11 @@ td {
 th {
   background-color: #009879;
   color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

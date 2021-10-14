@@ -61,7 +61,6 @@ app.get("/transferData", (req, res) => {
 });
 
 app.post("/transfer", (req, res) => {
-  console.log(req.body);
   const amount = Number(req.body.amount);
   const transferDetails = new transferModel({
     sender: req.body.sender,
@@ -76,7 +75,10 @@ app.post("/transfer", (req, res) => {
       customerModel
         .findOneAndUpdate(
           { email: req.body.senderEmail },
-          { $inc: { balance: -amount } }
+          { $inc: { balance: -amount } },
+          {
+            useFindAndModify: false,
+          }
         )
         .then()
         .catch((err) => {
@@ -86,7 +88,10 @@ app.post("/transfer", (req, res) => {
       customerModel
         .findOneAndUpdate(
           { email: req.body.recipientEmail },
-          { $inc: { balance: amount } }
+          { $inc: { balance: amount } },
+          {
+            useFindAndModify: false,
+          }
         )
         .then()
         .catch((err) => {
